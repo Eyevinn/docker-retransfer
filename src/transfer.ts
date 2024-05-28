@@ -32,7 +32,7 @@ export async function download(
     const auth: string[] = [];
     if (options.serviceAccessToken) {
       auth.push('-H');
-      auth.push(`'x-jwt': Bearer ${options.serviceAccessToken}`);
+      auth.push(`x-jwt: Bearer ${options.serviceAccessToken}`);
     }
     const { status, stdout, stderr } = spawnSync(
       'curl',
