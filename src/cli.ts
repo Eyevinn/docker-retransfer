@@ -26,7 +26,8 @@ cli
         serviceAccessToken: options.sat
       });
       const destHref = await upload(localFileName, destUrl, {
-        verbose: options.verbose
+        verbose: options.verbose,
+        s3EndpointUrl: process.env.S3_ENDPOINT_URL
       });
       console.log(
         `Transfer of ${sourceUrl.href} to ${destHref} completed successfully!`
