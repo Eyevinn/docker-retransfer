@@ -20,6 +20,17 @@ docker run --rm \
   retransfer -v https://www.eyevinn.se/instagram.ecb3802c.png s3://lab-testcontent-store/birme/
 ```
 
+For S3 compatible cloud storage not on AWS you can provide the S3 Endpoint URL in the environment variable `S3_ENDPOINT_URL`.
+
+```
+docker run --rm \
+  -e AWS_ACCESS_KEY_ID=<aws-access-key-id> \
+  -e AWS_SECRET_ACCESS_KEY=<aws-secret-access-key> \
+  -e S3_ENDPOINT_URL=<s3-endpoint-url> \
+  retransfer:local \
+  retransfer -v https://www.eyevinn.se/instagram.ecb3802c.png s3://lab-testcontent-store/birme/
+```
+
 ## Development
 
 Prerequisites:

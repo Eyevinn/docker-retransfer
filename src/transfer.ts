@@ -12,6 +12,7 @@ export type DownloadOptions = {
 
 export type UploadOptions = {
   verbose?: boolean;
+  s3EndpointUrl?: string;
 };
 
 export async function prepare(
@@ -50,6 +51,17 @@ export async function download(
   return localFileName;
 }
 
+export function createS3cmdArgs(
+  cmdArgs: string[],
+  s3EndpointUrl?: string
+): string[] {
+  const args = ['s3'];
+  if (s3EndpointUrl) {
+    args.push(`--endpoint-url=${s3EndpointUrl}`);
+  }
+  return args.concat(cmdArgs);
+}
+
 export async function upload(
   localFileName: string,
   dest: URL,
@@ -60,12 +72,11 @@ export async function upload(
     if (dest.pathname.endsWith('/')) {
       destHref = `${destHref}${basename(localFileName)}`;
     }
-    const { status, stdout, stderr } = spawnSync('aws', [
-      's3',
-      'cp',
-      localFileName,
-      destHref
-    ]);
+    const args = createS3cmdArgs(
+      ['cp', localFileName, destHref],
+      options.s3EndpointUrl
+    );
+    const { status, stdout, stderr } = spawnSync('aws', args);
     if (options.verbose && stderr) {
       console.log(stderr.toString());
     }
