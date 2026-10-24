@@ -15,6 +15,9 @@
   },
   "author": "Eyevinn Technology <work@eyevinn.se>",
   "license": "MIT",
+  "engines": {
+    "node": "^22.23.4 || >=24.22.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
